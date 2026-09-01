@@ -24,6 +24,9 @@
 - LCM 공식: lcm(a, b) = (a × b) / gcd(a, b)
 """
 
+from math import sqrt
+
+
 def gcd(a, b):
     """
     유클리드 호제법을 사용한 최대공약수 계산
@@ -54,9 +57,12 @@ def gcd_iterative(a, b):
     # TODO: 반복문으로 구현
     # b가 0이 될 때까지 반복
     while b != 0:
-        if a % b == 0:
-            return b
-        b -= 1
+        temp=b
+        b = a % b
+        a = temp
+
+        if b == 0:
+            return a
 
 def lcm(a, b):
     """
@@ -69,7 +75,7 @@ def lcm(a, b):
         최소공배수
     """
     # TODO: LCM 계산
-    return (a * b)/gcd(a, b)
+    return (a * b)//gcd(a, b)
 
 def extended_gcd(a, b):
     """
@@ -88,7 +94,12 @@ def extended_gcd(a, b):
     # 역추적하며 x, y 계산
     if b==0:
         return (a, 1, 0)
-    return extended_gcd(b, a-a//b*b)
+
+    gcd, x1, y1 = extended_gcd(b, a%b)
+
+    x = y1
+    y = x1 - (a//b)*y1
+    return (gcd, x, y)
 
 
 def is_prime(n):
@@ -105,7 +116,14 @@ def is_prime(n):
     # n이 2보다 작으면 False
     # 2부터 sqrt(n)까지 나누어 떨어지는지 확인
     # 3부터 sqrt(n)까지 홀수만 확인
-    pass
+    if n < 2:
+        return False
+    for i in range(2, int(sqrt(n))+1):
+        if n % i == 0:
+            return False
+    return True
+
+
 
 # 테스트 케이스
 if __name__ == "__main__":
