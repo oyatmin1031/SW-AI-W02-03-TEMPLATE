@@ -80,9 +80,8 @@ def find_duplicates_hash(nums):
     ## 없으면 seen에 추가
     for num in nums:
         if num in seen:
-            if num in seen:
-                duplicates.add(num)
-                continue
+            duplicates.add(num)
+            continue
         seen.add(num)
 
 

@@ -78,8 +78,8 @@ def quick_sort_helper(arr, low, high):
 
     i = partition(arr, low, high)
 
-    arr = quick_sort_helper(arr, low, i-1)
-    arr = quick_sort_helper(arr, i, high)
+    arr = quick_sort_helper(arr, low, i - 1)
+    arr = quick_sort_helper(arr, i + 1, high)
 
     return arr
 

@@ -73,21 +73,19 @@ def hanoi_moves(n: int) -> list:
     """
     # TODO: N > 20 또는 N == 0 인 경우 [] 를 반환하세요.
     # TODO: 그 외에는 재귀로 이동 순서를 만들어 반환하세요.
-    arr = []
+    arr: list[tuple[int, int]] = []
     if n > 20 or n == 0:
         return arr
 
-    def move(k, src, via, dst):
+    def move(k: int, src:int, via:int, dst:int) -> None:
         if k == 0: return
+
         move(k-1, src, dst, via)
         arr.append((src, dst))
         move(k-1, via, src, dst)
-        return arr
 
-    return move(n, 1, 2, 3)
-
-
-
+    move(n, 1, 2, 3)
+    return arr
 
 if __name__ == "__main__":
     print("[테스트 1] N=0 (원반 없음, 옮길 것 없음)")

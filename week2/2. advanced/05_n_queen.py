@@ -70,15 +70,18 @@ def n_queens(n: int) -> int:
     #   return count
     cols = [0] * n
     count = 0
+
+    # place
     def place(row: int):
-        nonlocal cols, count
+        nonlocal count
         if row == n:
             count += 1
             return
+
         for c in range(n):
             is_possible = True
 
-            for i in range(row):
+            for i in range(row): # 충돌 검사
                 if cols[i] == c or abs(cols[i] - c) == row - i:
                     is_possible = False
                     break
