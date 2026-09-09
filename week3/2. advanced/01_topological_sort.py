@@ -31,30 +31,42 @@ from collections import deque
 def topological_sort(vertices, edges):
     """
     위상 정렬 (Kahn's Algorithm)
-    
+
     Args:
         vertices: 정점 개수
         edges: (출발, 도착) 간선 리스트
-    
+
     Returns:
         위상 정렬 순서
     """
     # TODO: 그래프와 진입 차수 초기화
-    pass
-    
+    graph = {vertex: [] for vertex in range(vertices)}
+    in_degree=[0] * vertices
+
     # TODO: 그래프 구성 및 진입 차수 계산
-    pass
-    
+    for u, v in edges:
+        graph[u].append(v)
+        in_degree[v] += 1
+
     # TODO: 진입 차수가 0인 정점들을 큐에 추가
-    pass
-    
+    queue=deque()
+    for vertex in range(vertices):
+        if in_degree[vertex] == 0:
+            queue.append(vertex)
+
     result = []
-    
+
     # TODO: 큐가 빌 때까지 반복
     ## 큐에서 정점 꺼내기
     ## 인접한 정점들의 진입 차수 감소
-    pass
-    
+    while queue:
+        vertex = queue.popleft()
+        result.append(vertex)
+        for i in graph[vertex]:
+            in_degree[i] -= 1
+            if in_degree[i] == 0:
+                queue.append(i)
+
     return result
 
 # 테스트 케이스
@@ -66,12 +78,12 @@ if __name__ == "__main__":
         (0, 2),  # 0 → 2
         (1, 3),  # 1 → 3
     ]
-    
+
     print("=== 위상 정렬 ===")
     print("과목 관계:")
     print("  0(기초) → 1(중급) → 3(고급)")
     print("  0(기초) → 2(응용)")
     print()
-    
+
     result = topological_sort(vertices, edges)
     print(f"수강 순서: {result}")

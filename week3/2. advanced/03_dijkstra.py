@@ -79,7 +79,32 @@ def dijkstra(n: int, edges: list, start: int) -> list:
     # TODO: dist 를 INF 로 초기화하고 dist[start] = 0
     # TODO: 우선순위 큐(heapq)로 BFS-like 최단경로 탐색
     # TODO: dist 반환
-    pass
+
+    # 인접 리스트
+    graph: list[list[tuple[int, int]]] = [[] for _ in range(n)]
+
+    for edge in edges:
+        graph[edge[0]].append((edge[1], edge[2]))
+
+    dist = [INF for _ in range(n)]
+    dist[start] = 0
+
+    queue = []
+    heapq.heappush(queue, (0, start))
+
+    while queue:
+        d, u = heapq.heappop(queue)
+
+        if d > dist[u]:
+            continue
+
+        for v, w in graph[u]:
+            if d + w < dist[v]:
+                dist[v] = d + w
+                heapq.heappush(queue, (dist[v], v))
+
+    return dist
+
 
 
 def _format(dist):
