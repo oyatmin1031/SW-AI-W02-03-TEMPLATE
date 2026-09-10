@@ -1,12 +1,12 @@
 INF = float("inf")
 
 
-def make_change_greedy(change, coins):
-    result = {}
+def make_change_greedy(change: int, coins: list[int]) -> tuple[int, dict[int, int]]:
+    result: dict[int, int] = {}
     total_coins = 0
 
     for coin in coins:
-        count = change // coin
+        count: int = change // coin
         if count > 0:
             result[coin] = count
             change %= coin
@@ -15,7 +15,7 @@ def make_change_greedy(change, coins):
     return total_coins, result
 
 
-def make_change_dp(change, coins):
+def make_change_dp(change, coins) -> tuple[int, dict[int, int]]:
     result: dict = {}
 
     used_coins: list[int] = [0] * (change + 1)
@@ -76,6 +76,7 @@ if __name__ == "__main__":
     for coin, count in details.items():
         print(f"{coin}원: {count}개")
     print(f"총 {total}개")
+    print()
 
     # 테스트 케이스 4
     change4 = 200
@@ -87,6 +88,7 @@ if __name__ == "__main__":
     for coin, count in details.items():
         print(f"{coin}원: {count}개")
     print(f"총 {total}개")
+    print()
 
     # 테스트 케이스 5
     change5 = 200
@@ -98,3 +100,4 @@ if __name__ == "__main__":
     for coin, count in details.items():
         print(f"{coin}원: {count}개")
     print(f"총 {total}개")
+    print()
